@@ -1,15 +1,22 @@
-import experss, { Application, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-const app: Application = experss();
-const port = 3000;
+import { StudentRoutes } from './app/modules/student/student.route';
+const app: Application = express();
 
-// parser
-app.use(experss.json());
+//parser
+app.use(express.json());
 app.use(cors());
 
-app.get('/', (req: Request, res: Response) => {
-  const a = 10;
-  res.send(a);
-});
+
+// application routes
+app.use('/api/v1/students', StudentRoutes)
+
+const getAController = (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true
+  })
+}
+
+app.get('/', getAController);
 
 export default app;
